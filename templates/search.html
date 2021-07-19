@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>MBTI classifier</title>       
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href= "{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+    </head>
+    
+    <body>
+        
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand">MBTI clf</a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link", href="{{ url_for('home.home') }}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active", href="{{ url_for('search.search') }}">Search</a></li>
+                    </ul>
+                    
+                    <form class="d-flex">
+                        {% if session['userid'] %}
+                        <button class="btn btn-outline-dark" type="submit"><a href="{{ url_for('login.logout') }}">{{ session['userid'] }}님 Logout</a></button>
+                        {% else %}
+                        <button class="btn btn-outline-dark" type="submit"><a href="{{ url_for('login.login') }}">Login</a></button>
+                        {% endif %}
+                        <button class="btn btn-outline-dark" type="submit",  style="margin-left: 10px;"><a href="{{ url_for('register.register') }}">Sign Up</a></button>
+                    </form>
+
+                </div>
+            </div>
+        </nav>
+        
+
+        <!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">MBTI 검색기</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">관심인물의 트위터 계정을 입력하시면, 해당 인물의 MBTI유형을 알려드립니다!</p>
+                </div>
+            </div>
+        </header>
+        
+
+        <!-- Section-->
+        <section class="py-5">
+            <div class="container px-4 px-lg-5", style="text-align:center">
+                {% if search_name and result %}
+                <h5>{{ search_name }}의 MBTI유형은 {{ result }}입니다.</h5>
+                {% endif%}
+                <form action="" method="post">
+                    <input type="text" placeholder="Search..", name = 'search_name' onkeydown="search(this)"/>
+                    <input class="btn btn-default" type="submit" value="Search">
+                </form>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; moon23k</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
